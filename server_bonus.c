@@ -6,11 +6,11 @@
 /*   By: rpandipe <rpandie@student.42luxembourg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 20:53:12 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/04/21 22:42:03 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/04/21 23:05:51 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "minitalk_bonus.h"
 
 static void	ft_putnbr(int n)
 {

@@ -6,11 +6,11 @@
 /*   By: rpandipe <rpandie@student.42luxembourg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 20:52:39 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/04/21 22:56:58 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/04/21 23:05:10 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "minitalk_bonus.h"
 
 static int	ft_atoi(const char *nptr)
 {
