@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpandipe <rpandie@student.42luxembourg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/21 17:46:07 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/04/21 20:54:55 by rpandipe         ###   ########.fr       */
+/*   Created: 2024/04/21 20:53:12 by rpandipe          #+#    #+#             */
+/*   Updated: 2024/04/21 22:42:03 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,20 @@ void	sig_handler(int sign, siginfo_t *info, void *context)
 	static int	bit;
 
 	(void)context;
-	(void)info;
 	if (sign == SIGUSR1)
 		c |= (1 << bit);
 	if (++bit == 8)
 	{
-		write (1, &c, 1);
 		bit = 0;
+		if (!c)
+		{
+			kill (info->si_pid, SIGUSR1);
+			return ;
+		}
+		write (1, &c, 1);
 		c = 0;
 	}
+	kill (info->si_pid, SIGUSR2);
 }
 
 int	main(void)

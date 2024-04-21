@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpandipe <rpandie@student.42luxembourg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/21 17:25:44 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/04/21 22:56:37 by rpandipe         ###   ########.fr       */
+/*   Created: 2024/04/21 20:52:39 by rpandipe          #+#    #+#             */
+/*   Updated: 2024/04/21 22:56:58 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,35 @@ void	ft_ctob(int pid, char c)
 	}
 }
 
+void	sig_handler(int sign, siginfo_t *info, void *context)
+{
+	static int	i;
+	char		b;
+
+	(void)info;
+	(void)context;
+	if (sign == SIGUSR2)
+		i++;
+	else if (sign == SIGUSR1)
+	{
+		b = i / 8 + '0';
+		write(1, "Number of bytes recieved is ", 28);
+		write(1, &b, 1);
+	}
+}
+
 int	main(int argc, char **argv)
 {
-	int	pid;
-	int	i;
+	int			pid;
+	int			i;
+	struct sigaction	sa;
 
 	i = 0;
-	if (argc == 3)
+	sigemptyset(&sa.sa_mask);
+	sa.sa_sigaction = sig_handler;
+	sa.sa_flags = SA_RESTART | SA_SIGINFO;
+	if (argc == 3 && (sigaction(SIGUSR1, &sa, NULL) == -1 && \
+		sigaction(SIGUSR2, &sa, NULL) == -1))
 	{
 		pid = ft_atoi(argv[1]);
 		while (argv[2][i] != 0)
