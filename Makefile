@@ -6,7 +6,7 @@
 #    By: rpandipe <rpandie@student.42luxembourg.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/21 18:53:31 by rpandipe          #+#    #+#              #
-#    Updated: 2024/04/21 20:51:28 by rpandipe         ###   ########.fr        #
+#    Updated: 2024/04/21 23:09:27 by rpandipe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,10 +31,10 @@ client: client.c
 	$(CC) $(CFLAGS) client.c -o client
 
 server_bonus: server_bonus.c
-	$(CC) $(CFLAGS) server_bonus.c -o server
+	$(CC) $(CFLAGS) server_bonus.c -o server_bonus
 
 client_bonus: client_bonus.c
-	$(CC) $(CFLAGS) client_bonus.c -o client
+	$(CC) $(CFLAGS) client_bonus.c -o client_bonus
 
 clean:
 	$(RM) $(OBJS)

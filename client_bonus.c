@@ -6,11 +6,33 @@
 /*   By: rpandipe <rpandie@student.42luxembourg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 20:52:39 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/04/21 23:05:10 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/04/21 23:17:40 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk_bonus.h"
+
+static void	ft_putnbr(int n)
+{
+	char	c;
+
+	if (n == -2147483648)
+	{
+		write(1, "-2147483648", 11);
+		return ;
+	}
+	if (n < 0)
+	{
+		write(1, "-", 1);
+		n = -n;
+	}
+	if (n > 9)
+	{
+		ft_putnbr(n / 10);
+	}
+	c = n % 10 + '0';
+	write(1, &c, 1);
+}
 
 static int	ft_atoi(const char *nptr)
 {
@@ -56,7 +78,6 @@ void	ft_ctob(int pid, char c)
 void	sig_handler(int sign, siginfo_t *info, void *context)
 {
 	static int	i;
-	char		b;
 
 	(void)info;
 	(void)context;
@@ -64,9 +85,9 @@ void	sig_handler(int sign, siginfo_t *info, void *context)
 		i++;
 	else if (sign == SIGUSR1)
 	{
-		b = i / 8 + '0';
 		write(1, "Number of bytes recieved is ", 28);
-		write(1, &b, 1);
+		ft_putnbr(i / 8);
+		write(1, "\n", 1);
 	}
 }
 
@@ -80,8 +101,8 @@ int	main(int argc, char **argv)
 	sigemptyset(&sa.sa_mask);
 	sa.sa_sigaction = sig_handler;
 	sa.sa_flags = SA_RESTART | SA_SIGINFO;
-	if (argc == 3 && (sigaction(SIGUSR1, &sa, NULL) == -1 && \
-		sigaction(SIGUSR2, &sa, NULL) == -1))
+	if (argc == 3 && (sigaction(SIGUSR1, &sa, NULL) != -1 && \
+		sigaction(SIGUSR2, &sa, NULL) != -1))
 	{
 		pid = ft_atoi(argv[1]);
 		while (argv[2][i] != 0)
