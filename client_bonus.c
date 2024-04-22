@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandie@student.42luxembourg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 20:52:39 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/04/21 23:17:40 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/04/22 08:53:50 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ void	sig_handler(int sign, siginfo_t *info, void *context)
 
 int	main(int argc, char **argv)
 {
-	int			pid;
-	int			i;
+	int					pid;
+	int					i;
 	struct sigaction	sa;
 
 	i = 0;
