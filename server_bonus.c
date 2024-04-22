@@ -6,12 +6,11 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 20:53:12 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/04/22 11:06:23 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/04/22 11:46:44 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk_bonus.h"
-#include <stdio.h>
 
 static void	ft_putnbr(int n)
 {
@@ -39,7 +38,7 @@ void	sig_handler(int sign, siginfo_t *info, void *context)
 {
 	static int	c;
 	static int	bit;
-	static int 	pid;
+	static int	pid;
 
 	(void)context;
 	if (pid == 0)

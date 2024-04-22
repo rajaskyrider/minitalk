@@ -6,12 +6,11 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 20:52:39 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/04/22 11:07:23 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/04/22 11:46:23 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk_bonus.h"
-#include <stdio.h>
 
 static int	g_status;
 
@@ -91,7 +90,6 @@ void	ft_ctob(int pid, char c)
 		g_status = 0;
 		if ((c >> i) & 1)
 			kill(pid, SIGUSR1);
-
 		else
 			kill(pid, SIGUSR2);
 		while (g_status != 1 && timer++)
