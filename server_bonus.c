@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandie@student.42luxembourg.    +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 20:53:12 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/04/21 23:05:51 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/04/22 11:06:23 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk_bonus.h"
+#include <stdio.h>
 
 static void	ft_putnbr(int n)
 {
@@ -38,8 +39,11 @@ void	sig_handler(int sign, siginfo_t *info, void *context)
 {
 	static int	c;
 	static int	bit;
+	static int 	pid;
 
 	(void)context;
+	if (pid == 0)
+		pid = info->si_pid;
 	if (sign == SIGUSR1)
 		c |= (1 << bit);
 	if (++bit == 8)
@@ -47,7 +51,8 @@ void	sig_handler(int sign, siginfo_t *info, void *context)
 		bit = 0;
 		if (!c)
 		{
-			kill (info->si_pid, SIGUSR1);
+			kill (pid, SIGUSR1);
+			pid = 0;
 			return ;
 		}
 		write (1, &c, 1);
