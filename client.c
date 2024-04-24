@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 17:25:44 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/04/22 11:38:55 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/04/24 09:40:17 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	ft_ctob(int pid, char c)
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
-		usleep(150);
+		usleep(100);
 		i++;
 	}
 }
