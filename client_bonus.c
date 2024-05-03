@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandie@student.42luxembourg.    +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 20:52:39 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/04/21 23:17:40 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/04/22 11:46:23 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk_bonus.h"
+
+static int	g_status;
 
 static void	ft_putnbr(int n)
 {
@@ -59,28 +61,13 @@ static int	ft_atoi(const char *nptr)
 	return (sign * ans);
 }
 
-void	ft_ctob(int pid, char c)
-{
-	int		i;
-
-	i = 0;
-	while (i < 8)
-	{
-		if ((c >> i) & 1)
-			kill(pid, SIGUSR1);
-		else
-			kill(pid, SIGUSR2);
-		usleep(100);
-		i++;
-	}
-}
-
 void	sig_handler(int sign, siginfo_t *info, void *context)
 {
 	static int	i;
 
 	(void)info;
 	(void)context;
+	g_status = 1;
 	if (sign == SIGUSR2)
 		i++;
 	else if (sign == SIGUSR1)
@@ -91,10 +78,37 @@ void	sig_handler(int sign, siginfo_t *info, void *context)
 	}
 }
 
+void	ft_ctob(int pid, char c)
+{
+	int		i;
+	int		timer;
+
+	i = 0;
+	while (i < 8)
+	{
+		timer = 1;
+		g_status = 0;
+		if ((c >> i) & 1)
+			kill(pid, SIGUSR1);
+		else
+			kill(pid, SIGUSR2);
+		while (g_status != 1 && timer++)
+		{
+			if (timer == 50)
+			{
+				write (1, "Server Issues\n", 15);
+				exit (1);
+			}
+			usleep(100);
+		}
+		i++;
+	}
+}
+
 int	main(int argc, char **argv)
 {
-	int			pid;
-	int			i;
+	int					pid;
+	int					i;
 	struct sigaction	sa;
 
 	i = 0;
